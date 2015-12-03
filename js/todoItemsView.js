@@ -19,6 +19,7 @@ var TodoItemsView = Backbone.View.extend({
         }
 
         this.model.on('add', this.onAddTodoItem, this);
+        this.model.on('remove', this.onRemoveTodoItem, this);
     },
 
     render: function () {
@@ -39,8 +40,8 @@ var TodoItemsView = Backbone.View.extend({
         var $textBox = this.$('#newTodoItem');
         var newDescription = $textBox.val();
         if (newDescription && newDescription.length > 2) {
-            var todoItem = new TodoItem({description: newDescription});
-            this.model.add(todoItem);
+            var todoItem = new TodoItem({title: newDescription});
+            this.model.create(todoItem);
             $textBox.val("");
         }
     },
@@ -55,5 +56,9 @@ var TodoItemsView = Backbone.View.extend({
         if (e.keyCode === 13) {
             this.onClickAdd();
         }
+    },
+
+    onRemoveTodoItem: function (model) {
+        this.$('li#' + model.get('id')).remove();
     }
 });

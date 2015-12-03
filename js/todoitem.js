@@ -4,17 +4,20 @@
 
 var TodoItem = Backbone.Model.extend({
 
+    urlRoot: 'http://jsonplaceholder.typicode.com/todos',
+
     defaults: {
-        isChecked: false
+        completed: false
     },
 
     validate: function (attrs) {
-        if (!attrs.description) {
-            return 'Description is required';
+        if (!attrs.title) {
+            return 'Title is required';
         }
     },
 
     toggle: function () {
-        this.set('isChecked', !this.get('isChecked'));
+        this.set('completed', !this.get('completed'));
+        this.save();
     }
 });

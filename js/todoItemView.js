@@ -7,7 +7,9 @@ var TodoItemView = Backbone.View.extend({
     tagName: 'li',
 
     events: {
-        'click [type="checkbox"]': 'itemChecked'
+        'click [type="checkbox"]': 'itemChecked',
+        'click #delete': 'onClickDelete'
+
     },
 
     initialize: function (options) {
@@ -21,20 +23,27 @@ var TodoItemView = Backbone.View.extend({
     render: function () {
         //var checked = this.model.get('isChecked') ? "checked" : "";
         //var checkBoxes = '<input type="checkbox" ' + checked + ' >';
-        this.$el.toggleClass("completed", this.model.get('isChecked'));
+        this.$el.attr('id', this.model.get('id'));
+        this.$el.toggleClass("completed", this.model.get('completed'));
         var checkBoxes = undefined;
-        if (this.model.get('isChecked')) {
+        if (this.model.get('completed')) {
             checkBoxes = '<input type="checkbox" checked>';
-            this.$el.html(checkBoxes + this.model.escape('description'));
+            this.$el.html(checkBoxes + this.model.escape('title'));
         } else {
             checkBoxes = '<input type="checkbox">';
-            this.$el.html(checkBoxes + this.model.escape('description'));
+            this.$el.html(checkBoxes + this.model.escape('title'));
         }
+
+        this.$el.append('<button id="delete">Delete</button>');
 
         return this;
     },
 
     itemChecked: function () {
         this.model.toggle();
+    },
+
+    onClickDelete: function () {
+        this.model.destroy();
     }
 });

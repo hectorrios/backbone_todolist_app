@@ -28,14 +28,25 @@
 
         <script id="todoItemTemplate" type="text/x-handlebars-template">
 
-            {{#if completed}}
-            <input type="checkbox" checked >{{title}}
-            {{else}}
-            <input type="checkbox" >{{title}}
-            {{/if}}
+            <label>
+                {{#if completed}}
+                <input type="checkbox" checked >
+                {{else}}
+                <input type="checkbox" >
+                {{/if}}
+                {{title}}
+            </label>
 
             <button id="delete">Delete</button>
 
+        </script>
+
+        <script id="todoItemsTemplate" type="text/x-handlebars-template">
+            <header id="addNewTodoItem">
+                <input type="text" id="newTodoItem" autofocus placeholder="Enter new TodoItem">
+            </header>
+
+            <ul id="todoItems"></ul>
         </script>
     </body>
 </html>

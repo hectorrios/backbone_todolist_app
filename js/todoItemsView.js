@@ -4,12 +4,9 @@
 
 var TodoItemsView = Backbone.View.extend({
 
-    tagName: 'ul',
-
-    id: 'todoItems',
+    id: 'todoItemsContainer',
 
     events: {
-        'click #add': 'onClickAdd',
         'keypress #newTodoItem': 'onKeyPress'
     },
 
@@ -24,14 +21,15 @@ var TodoItemsView = Backbone.View.extend({
 
     render: function () {
 
-        this.$el.append('<input type="text" id="newTodoItem" autofocus >' );
+        var source = $('#todoItemsTemplate').html();
+        var template = Handlebars.compile(source);
+        var html = template();
+        this.$el.html(html);
 
-        this.$el.append('<button id="add">Add</button>');
-
-        this.model.each(function (todoItem) {
-            var view = new TodoItemView({ model: todoItem});
-            this.$el.append(view.render().$el);
-        }, this);
+        //this.model.each(function (todoItem) {
+        //    var view = new TodoItemView({ model: todoItem});
+        //    this.$el.append(view.render().$el);
+        //}, this);
 
         return this;
     },
@@ -48,8 +46,7 @@ var TodoItemsView = Backbone.View.extend({
 
     onAddTodoItem: function (newTodoItem) {
         var view = new TodoItemView({model: newTodoItem});
-
-        this.$el.append(view.render().$el);
+        this.$('#todoItems').append(view.render().$el);
     },
 
     onKeyPress: function (e) {

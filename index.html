@@ -17,6 +17,7 @@
         <script src="js/lib/jquery-min.js"></script>
         <script src="js/lib/underscore-min.js"></script>
         <script src="js/lib/backbone-min.js"></script>
+        <script src="js/lib/handlebars-v4.0.5.js"></script>
 
         <script src="js/todoitem.js"></script>
         <script src="js/todoitems.js"></script>
@@ -24,5 +25,17 @@
         <script src="js/todoItemsView.js"></script>
 
         <script src="js/main.js"></script>
+
+        <script id="todoItemTemplate" type="text/x-handlebars-template">
+
+            {{#if completed}}
+            <input type="checkbox" checked >{{title}}
+            {{else}}
+            <input type="checkbox" >{{title}}
+            {{/if}}
+
+            <button id="delete">Delete</button>
+
+        </script>
     </body>
 </html>

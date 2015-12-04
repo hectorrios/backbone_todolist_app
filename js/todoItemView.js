@@ -21,21 +21,14 @@ var TodoItemView = Backbone.View.extend({
     },
 
     render: function () {
-        //var checked = this.model.get('isChecked') ? "checked" : "";
-        //var checkBoxes = '<input type="checkbox" ' + checked + ' >';
+
         this.$el.attr('id', this.model.get('id'));
         this.$el.toggleClass("completed", this.model.get('completed'));
-        var checkBoxes = undefined;
-        if (this.model.get('completed')) {
-            checkBoxes = '<input type="checkbox" checked>';
-            this.$el.html(checkBoxes + this.model.escape('title'));
-        } else {
-            checkBoxes = '<input type="checkbox">';
-            this.$el.html(checkBoxes + this.model.escape('title'));
-        }
 
-        this.$el.append('<button id="delete">Delete</button>');
-
+        var source = $('#todoItemTemplate').html();
+        var template = Handlebars.compile(source);
+        var html = template(this.model.toJSON());
+        this.$el.html(html);
         return this;
     },
 
